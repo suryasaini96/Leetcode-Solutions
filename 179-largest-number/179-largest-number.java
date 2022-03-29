@@ -17,6 +17,6 @@ class Solution {
         for (int x: nums)
             result += x;
         
-        return result.replaceFirst("^0+(?!$)", "");
+        return result.replaceFirst("^0+(?!$)", ""); // For edge case for removing starting 0's
     }
 }
