@@ -1,5 +1,6 @@
 class Solution {
     
+    /*
     // Approach 1
     public int maxScore(int[] cardPoints, int k) {
         // Approach: Minimizing the n-k elements in the middle will give max points from either end
@@ -30,9 +31,9 @@ class Solution {
                 maxSum = totalSum - windowSum;
         }
         return maxSum;
-    }
+    } */
     
-    /*
+    
     // Approach 2: Cleaner
     public int maxScore(int[] cardPoints, int k) {
         int minContiguousSum = Integer.MAX_VALUE;
@@ -55,5 +56,5 @@ class Solution {
         if (n==k)
             return totalSum;
         return totalSum - minContiguousSum;
-    }*/
+    }
 }
