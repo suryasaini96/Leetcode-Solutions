@@ -1,6 +1,6 @@
 class Solution {
     
-    // Faster than 65.05% - Time complexity - O(n) and Space complexity - O(1)
+    // Most optimal - 1ms - Faster than 94.84% - Time complexity - O(n) and Space complexity - O(1)
     public int numDecodings(String s) {
         if (s.length() == 0 || s.charAt(0) == '0') return 0;
         if (s.length() == 1) return 1;
