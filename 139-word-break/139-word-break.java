@@ -23,9 +23,9 @@ class Solution {
         dp[0] = true;
         Set<String> dict = new HashSet<>(wordDict);
         for (int i=0; i<n; i++) {
-            for (int j=i; j<n; j++) {
+            for (int j=i; dp[i] && j<n; j++) {
                 String word = s.substring(i,j+1);
-                if (dp[i] && dict.contains(word)) 
+                if (dict.contains(word)) 
                     dp[j+1] = dp[i];
             }
         }
