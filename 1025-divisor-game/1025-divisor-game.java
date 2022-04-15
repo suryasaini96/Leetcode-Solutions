@@ -18,7 +18,7 @@ class Solution {
         return dp[n];
     }
     
-//     // Memoized solution - Top down
+//     // Memoized solution - Top down - fastest
 //     Boolean dp[];
 //     public boolean divisorGame(int n) {
 //         if (n==0 || n==1) return false;
