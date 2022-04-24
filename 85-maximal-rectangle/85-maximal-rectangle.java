@@ -13,14 +13,14 @@ class Solution {
         
         int maxAreaOfRectangle = 0;
         for (int i=0; i<r; i++) {
-            int area = areaOfHistogram(heights[i]);
+            int area = maxAreaOfHistogram(heights[i]);
             if (area > maxAreaOfRectangle)
                 maxAreaOfRectangle = area;
         }
         return maxAreaOfRectangle;
     }
     
-    private int areaOfHistogram(int heights[]) {
+    private int maxAreaOfHistogram(int heights[]) {
         int n = heights.length;
         int leftLowerIndex[] = new int[n];
         int rightLowerIndex[] = new int[n];
