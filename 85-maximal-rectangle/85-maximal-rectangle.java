@@ -7,10 +7,7 @@ class Solution {
             heights[0][j] = matrix[0][j] == '1' ? 1: 0;
         for (int i=1; i<r; i++) {
             for (int j=0; j<c; j++) {
-                if (matrix[i][j] == '0')
-                    heights[i][j] = 0;
-                else
-                    heights[i][j] = heights[i-1][j] + 1;
+                heights[i][j] = matrix[i][j] == '0' ? 0 : heights[i-1][j] + 1;
             }
         }
         
