@@ -1,4 +1,10 @@
 class Solution {
+
+    public String reverseWords(String s) {
+        String[] words = s.trim().split(" +");
+        Collections.reverse(Arrays.asList(words));
+        return String.join(" ", words);
+    }
     
 //     public String reverseWords(String s) {
 //         List<String> words = new ArrayList<>();
@@ -51,10 +57,5 @@ class Solution {
     //     }
     //     return sb.toString().trim();
     // }
-    
-    public String reverseWords(String s) {
-        String[] words = s.trim().split(" +");
-        Collections.reverse(Arrays.asList(words));
-        return String.join(" ", words);
-    }
+
 }
