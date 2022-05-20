@@ -15,8 +15,8 @@ class Solution {
         for (int i = start; i < nums.length; i++) {
             if (i > start && nums[i] == nums[i-1]) // skip the duplicates
                 continue;
-            if (sum + nums[i] > target)
-                break;
+            // if (sum + nums[i] > target)
+            //     break;
             currList.add(nums[i]);
             backtrack(list, currList, nums, i+1, target, sum = sum + nums[i]);
             currList.remove(currList.size()-1);
