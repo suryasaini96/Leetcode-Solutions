@@ -18,14 +18,9 @@ class Solution {
         if (visited[s]) return;
         
         visited[s] = true;
-        List<Integer> adj = new ArrayList<>();
         for (int j = 0; j < n; j++) {
-            int val = isConnected[s][j];
-            if (val == 1) adj.add(j); 
-        }
-        
-        for (Integer v: adj) {
-            dfs(isConnected, v, n, visited);
+            if (isConnected[s][j] == 1 && !visited[j])
+                dfs(isConnected, j, n, visited);
         }
     }
     
