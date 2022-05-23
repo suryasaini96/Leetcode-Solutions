@@ -3,10 +3,7 @@ class Solution {
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[0].length; j++) {
                 if (board[i][j] == word.charAt(0)) {
-                    boolean result = dfs(word, 0, i, j, board, new boolean[board.length][board[0].length]);
-                    if (!result)
-                        continue;
-                    else
+                    if (dfs(word, 0, i, j, board, new boolean[board.length][board[0].length]))
                         return true;
                 }
             }
@@ -16,7 +13,6 @@ class Solution {
     }
     
     private boolean dfs(String word, int pos, int i, int j, char[][] board, boolean visited[][]) {
-        
         if (pos >= word.length())
             return true;
         
@@ -27,13 +23,12 @@ class Solution {
             visited[i][j] = true;
             boolean result = dfs(word, pos+1, i-1, j, board, visited) || dfs(word, pos+1, i, j+1, board, visited) 
                 || dfs(word, pos+1, i+1, j, board, visited) || dfs(word, pos+1, i, j-1, board, visited);
-            if (!result)
+            if (!result) // If we don't find a result from dfs then mark the character as unvisited and return false (backtrack)
                 return visited[i][j] = false;
             else
                 return true;
-        } else {
-            visited[i][j] = false;
-            return false;
-        }
+        } else
+            return visited[i][j] = false;
+            
     }
 }
