@@ -13,16 +13,19 @@ class Solution {
 
         prod = 1; // Reset the prod variable
         // Again calculate product so far from start till current value
-        // Now: multiply product so far (for previous value) with products[i+1]
-        // Take care of out of bounds condition
+        // Now: multiply previous product so far with products[i+1] (which has suffix products)
         for (int i = 0; i < nums.length; i++) {
-            if (i + 1 >= nums.length)
-                products[i] = prod * 1;
+            if (i + 1 >= nums.length) // Take care of out of bounds condition
+                products[i] = prod * 1; // For out of bounds multiple previous product so far with 1
             else
-                products[i] = prod * products[i+1];
-            prod = prod * nums[i];
+                products[i] = prod * products[i+1]; // Multiply prev product so far with next value from suffix products 
+            prod = prod * nums[i]; // Calculate previous product so far
         }
         
+        // For eg: at 1st index:
+        // previous product so far = 1
+        // and suffix product[i+1] = 12
+        // so product[i] = 1*12
         return products;
     }
 }
