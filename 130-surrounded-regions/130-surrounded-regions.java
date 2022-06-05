@@ -1,5 +1,4 @@
 class Solution {
-    //private boolean[][] visited = new boolean[200][200];
     
     public void solve(char[][] board) {
         int m = board.length; 
