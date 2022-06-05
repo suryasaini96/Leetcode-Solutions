@@ -28,7 +28,7 @@ class Solution {
             // Now visit the inner rows and columns
             for (int i = 1; i < m-1; i++) {
                 for (int j = 1; j < n-1; j++) {
-                    if (board[i][j] == 'O') {
+                    if (board[i][j] == 'O' && !visited[i][j]) {
                         dfs(board, i, j, visited, true);
                     }
                 }
