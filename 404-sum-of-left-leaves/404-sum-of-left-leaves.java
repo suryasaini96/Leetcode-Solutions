@@ -14,19 +14,34 @@
  * }
  */
 class Solution {
+    
     public int sumOfLeftLeaves(TreeNode root) {
-        if (root == null) {
-            return 0;
-        }
-        int ans = 0;
-        if (root.left != null) {
-            if (root.left.left == null && root.left.right == null) // If left is a leaf node
-                ans += root.left.val;
-            else // Make recursive call to the left node
-                ans += sumOfLeftLeaves(root.left); 
-        }
-        ans += sumOfLeftLeaves(root.right); // Make recursive call to the right node and find it's left leaf node
-        return ans;
+        return sumLeft(root, false);
     }
+    
+    private int sumLeft(TreeNode root, boolean isLeftNode) {
+        if (root == null)
+            return 0;
+        if (root.left == null && root.right == null && isLeftNode) {
+            return root.val;
+        }
+        return sumLeft(root.left, true) + sumLeft(root.right, false);   
+    }
+    
+    // Another solution
+    // public int sumOfLeftLeaves(TreeNode root) {
+    //     if (root == null) {
+    //         return 0;
+    //     }
+    //     int ans = 0;
+    //     if (root.left != null) {
+    //         if (root.left.left == null && root.left.right == null) // If left is a leaf node
+    //             ans += root.left.val;
+    //         else // Make recursive call to the left node
+    //             ans += sumOfLeftLeaves(root.left); 
+    //     }
+    //     ans += sumOfLeftLeaves(root.right); // Make recursive call to the right node and find it's left leaf node
+    //     return ans;
+    // }
     
 }
