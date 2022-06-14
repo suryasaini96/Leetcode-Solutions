@@ -11,7 +11,7 @@ class Solution {
             list.add(new ArrayList<>(currList));
             return;
         }
-        if (sum > target || start >= nums.length) {
+        if (sum > target) {
             return;
         }
         
