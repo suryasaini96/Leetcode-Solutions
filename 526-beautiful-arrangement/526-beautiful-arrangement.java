@@ -4,22 +4,31 @@ class Solution {
     
     public int countArrangement(int n) {
         int nums[] = new int[n+1];
-        permute(nums, 1, n);
+        for (int i = 1; i <= n; i++) {
+            nums[i] = i;
+        }
+        permute(nums, n);
         return result;
     }
-    
-    void permute(int[] nums, int val, int n) {
-        if (val > n) {
-            result++;
+
+    private void permute(int nums[], int val) {
+        if (val == 0) {
+            result++; 
             return;
         }
         
-        for (int i=1; i<=n; i++) {
-            if (nums[i] == 0 && (val%i==0 || i%val==0)) {
-                nums[i] = val;
-                permute(nums, val + 1, n);
-                nums[i] = 0;
+        for (int i = val; i > 0; i--) {
+            swap(nums, i, val);
+            if (nums[val]%val==0 || val%nums[val]==0) {
+                permute(nums, val-1);
             }
+            swap(nums, i, val);
         }
+    }
+    
+    private void swap(int[] nums, int i, int j) {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
     }
 }
