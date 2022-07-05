@@ -22,10 +22,6 @@ class Solution {
     }
     
     private int getHeight(TreeNode node) {
-        // Adding below line to come out of recursion faster
-        if (!balanced)
-            return 0;
-        
         if (node == null) {
             return -1;
         }
