@@ -9,8 +9,6 @@ class Solution {
             }
             if (!stack.isEmpty()) {
                 days[i] = stack.peek() - i;
-            } else {
-                days[i] = 0;
             }
             stack.push(i);
         }
