@@ -40,9 +40,6 @@ class Solution {
         
         if (freqMap.containsKey(currSum)) {
             freqMap.put(currSum, freqMap.get(currSum) - 1); // Decrease currSum frequency
-            if (freqMap.get(currSum) == 0) { // If freq is 0 then remove from map
-                freqMap.remove(currSum);
-            }
         }    
     }
 }
