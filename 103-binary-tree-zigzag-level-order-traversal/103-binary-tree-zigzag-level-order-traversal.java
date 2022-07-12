@@ -21,23 +21,30 @@ class Solution {
         
         List<List<Integer>> res = new ArrayList<List<Integer>>();
         
-        boolean alter = true; // Variable for reversing the list each time it is added
+        boolean alter = true; // Variable for deciding the zigzag order
 
         Deque<TreeNode> dq = new ArrayDeque<>();
         dq.add(root);
         while (!dq.isEmpty()) {
             int size = dq.size();
             List<Integer> tempList = new ArrayList<>();
-            for (int i = size - 1; i >= 0; i--) {
-                TreeNode node = dq.poll();
-                tempList.add(node.val);
-                if (node.left != null)
-                    dq.add(node.left);
-                if (node.right != null)
-                    dq.add(node.right); 
+            for (int i = 0; i < size; i++) {
+                if (alter) {
+                    TreeNode node = dq.pollFirst();
+                    tempList.add(node.val);
+                    if (node.left != null)
+                        dq.addLast(node.left);
+                    if (node.right != null)
+                        dq.addLast(node.right); 
+                } else {
+                    TreeNode node = dq.pollLast();
+                    tempList.add(node.val);
+                    if (node.right != null)
+                        dq.addFirst(node.right); 
+                    if (node.left != null)
+                        dq.addFirst(node.left);
+                }
             }
-            if (!alter)
-                Collections.reverse(tempList);
             alter = !alter;
             res.add(tempList);
         }
