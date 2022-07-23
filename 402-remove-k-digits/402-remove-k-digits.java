@@ -14,7 +14,8 @@ class Solution {
             stack.push(x);
         }
         
-        // If numbers are still in ascending order and k is not 0 yet.
+        // If numbers are still in ascending order and k is not 0 yet
+        // Then remove the last (top) elements because they are greatest
         while(!stack.isEmpty() && k > 0) {
             stack.pop();
             k--;
