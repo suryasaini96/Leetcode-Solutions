@@ -14,8 +14,10 @@ class Solution {
             stack.push(x);
         }
         
-        while(!stack.isEmpty() && k-- > 0){
+        // If numbers are still in ascending order and k is not 0 yet.
+        while(!stack.isEmpty() && k > 0) {
             stack.pop();
+            k--;
         }
         
         StringBuilder sb = new StringBuilder();
@@ -23,18 +25,15 @@ class Solution {
             sb.append(stack.pop());
         }
         
-        if (sb.length() == 1) {
-            return sb.toString();
-        }
+        // if (sb.length() == 1) {
+        //     return sb.toString();
+        // }
         
+        // Remove starting 0's
         sb = sb.reverse();
         while (sb.length() > 0 && sb.charAt(0) == '0')
             sb.deleteCharAt(0);
         
-        if (sb.length() == 0) {
-            return "0"; 
-        }
-        
-        return sb.toString();
+        return sb.length() == 0 ? "0" : sb.toString();
     }
 }
