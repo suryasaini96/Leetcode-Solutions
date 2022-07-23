@@ -25,10 +25,6 @@ class Solution {
             sb.append(stack.pop());
         }
         
-        // if (sb.length() == 1) {
-        //     return sb.toString();
-        // }
-        
         // Remove starting 0's
         sb = sb.reverse();
         while (sb.length() > 0 && sb.charAt(0) == '0')
