@@ -29,20 +29,18 @@ class Solution {
             int res = 0;
             if (!firstStack.isEmpty() && !secondStack.isEmpty()) {
                 res = firstStack.pop() + secondStack.pop() + carry;
-                carry = getCarry(res);
                 ListNode node = new ListNode(res%10, null);
                 result.push(node);
             } else if (!firstStack.isEmpty()) {
                 res = firstStack.pop() + carry;
-                carry = getCarry(res);
                 ListNode node = new ListNode(res%10, null);
                 result.push(node);
             } else if (!secondStack.isEmpty()) {
                 res = secondStack.pop() + carry;
-                carry = getCarry(res);
                 ListNode node = new ListNode(res%10, null);
                 result.push(node);
             }
+            carry = res/10;
         }
         
         if (carry > 0) {
@@ -57,11 +55,5 @@ class Solution {
         }
         
         return head;
-    }
-    
-    private int getCarry(int num) {
-        if (num >= 10)
-            return 1;
-        return 0;
     }
 }
