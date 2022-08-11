@@ -11,33 +11,21 @@
 class Solution {
     public ListNode mergeKLists(ListNode[] lists) {
         ListNode dummy = new ListNode(0);
-        ListNode head = dummy;
-        ListNode curr = head;
-        PriorityQueue<Pair> pq = new PriorityQueue<>((a, b) -> Integer.compare(a.node.val, b.node.val));
+        ListNode curr = dummy;
+        PriorityQueue<ListNode> pq = new PriorityQueue<>((a, b) -> Integer.compare(a.val, b.val));
         for (int i = 0; i < lists.length; i++) {
             if (lists[i] != null) {
-                pq.add(new Pair(lists[i], i));
+                pq.add(lists[i]);
             }
         }
         
         while (!pq.isEmpty()) {
-            Pair pair = pq.poll();
-            curr.next = pair.node;
+            ListNode node = pq.poll();
+            curr.next = node;
             curr = curr.next;
-            lists[pair.idx] = pair.node.next;
-            if (lists[pair.idx] != null)
-                pq.add(new Pair(lists[pair.idx], pair.idx));
+            if (curr.next != null)
+                pq.add(curr.next);
         }
-        return head.next;
-    }
-}
-
-class Pair {
-    ListNode node;
-    int idx;
-    
-    Pair(ListNode node, int idx) {
-        this.node = node;
-        this.idx = idx;
+        return dummy.next;
     }
 }
