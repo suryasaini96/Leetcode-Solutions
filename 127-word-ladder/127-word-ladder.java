@@ -6,7 +6,7 @@ class Solution {
         Set<String> visited = new HashSet<>();
         int steps = 1;
         q.offer(beginWord);
-        set.add(beginWord);
+        visited.add(beginWord);
         while (!q.isEmpty()) {
             int size = q.size();
             for (int i = 0; i < size; i++) {
