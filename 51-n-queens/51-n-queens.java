@@ -6,11 +6,14 @@ class Solution {
         for (int i = 0; i < n; i++) {
             board.add(i, new StringBuilder(dots));
         }
-        solve(result, board, 0, n);
+        int[] top_left_diagonal = new int[2*n-1];
+        int[] bottom_left_diagonal = new int[2*n-1];
+        int[] left_row = new int[n];
+        solve(result, board, 0, n, top_left_diagonal, bottom_left_diagonal, left_row);
         return result;
     }
     
-    private void solve(List<List<String>> result, List<StringBuilder> board, int col, int n) {
+    private void solve(List<List<String>> result, List<StringBuilder> board, int col, int n, int[] top_left_diagonal, int[] bottom_left_diagonal, int[] left_row) {
         if (col == n) {
             List<String> temp = new ArrayList<>();
             for (StringBuilder sb: board) {
@@ -21,43 +24,20 @@ class Solution {
         }
         
         for (int row = 0; row < n; row++) {
-            if (isSafe(board, row, col, n)) {
+            if (bottom_left_diagonal[row + col] == 0 
+                && top_left_diagonal[n-1 + col-row] == 0 && left_row[row] == 0) {
                 board.get(row).setCharAt(col, 'Q');
-                solve(result, board, col+1, n);
+                setHash(top_left_diagonal, bottom_left_diagonal, left_row, row, col, n, 1);
+                solve(result, board, col+1, n, top_left_diagonal, bottom_left_diagonal, left_row);
                 board.get(row).setCharAt(col, '.');
+                setHash(top_left_diagonal, bottom_left_diagonal, left_row, row, col, n, 0);
             }
         }
     }
     
-    private boolean isSafe(List<StringBuilder> board, int row, int col, int n) {
-        int cr = row;
-        int cc = col;
-        
-        // Check the left of current {row,col} if queen could be placed
-        while (col>=0) {
-            if (board.get(row).charAt(col) == 'Q')
-                return false;
-            col--;
-        }
-        
-        // Check the top left diagonal if queen could be placed
-        col = cc;
-        while (row>=0 && col>=0) {
-            if (board.get(row).charAt(col) == 'Q')
-                return false;
-            row--;
-            col--;
-        }
-        
-        // Check the bottm left diagonal if queen could be placed
-        row = cr;
-        col = cc;
-        while (row<n && col>=0) {
-            if (board.get(row).charAt(col) == 'Q')
-                return false;
-            row++;
-            col--;
-        }
-        return true;
+    private void setHash(int[] top_left_diagonal, int[] bottom_left_diagonal, int[] left_row, int row, int col, int n, int val) {
+        top_left_diagonal[n-1 + col-row] = val;
+        bottom_left_diagonal[row + col] = val;
+        left_row[row] = val;
     }
 }
