@@ -1,20 +1,31 @@
 class Solution {
     
-    int count = 0;
+    HashMap<String, Integer> memo = new HashMap<>();
     
     public int findTargetSumWays(int[] nums, int target) {
-        recursion(nums, target, 0, 0);
-        return count;
+        return dfs(nums, target, 0, 0);
     }
     
-    public void recursion(int[] nums, int target, int i, int sum) {
-        if (sum == target && i == nums.length) {
-            count++;
+    public int dfs(int[] nums, int target, int i, int sum) {
+        String serialVal = serialize(i, sum);
+        if (memo.containsKey(serialVal)) {
+            return memo.get(serialVal);
         }
         if (i == nums.length) {
-            return;
+            if (sum == target) {
+                return 1;
+            }
+            return 0;
         }
-        recursion(nums, target, i+1, sum + nums[i]);
-        recursion(nums, target, i+1, sum - nums[i]);
+        int minusWays = dfs(nums, target, i+1, sum - nums[i]);
+        int plusWays = dfs(nums, target, i+1, sum + nums[i]);
+        
+        int ways = minusWays + plusWays;
+        memo.put(serialVal, ways);
+        return ways;
+    }
+    
+    public String serialize(int index, int sum) {
+        return index + "," + sum;
     }
 }
