@@ -11,6 +11,9 @@ class Solution {
                 count--;
             }
             maxCount = Math.max(maxCount, count);
+            if (maxCount == k) {
+                break;
+            }
         }
         return maxCount;
     }
