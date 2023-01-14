@@ -1,17 +1,12 @@
 class Solution {
     public long zeroFilledSubarray(int[] nums) {
-        long[] dp = new long[nums.length];
-        dp[0] = nums[0] == 0 ? 1 : 0;
-        long sum = dp[0];
-        for (int i = 1; i < nums.length; i++) {
-            if (nums[i] == 0) {
-                if (nums[i-1] == 0) {
-                    dp[i] = dp[i-1] + 1;
-                } else {
-                    dp[i] = 1;
-                }
+        long sum = 0;
+        for (int j = 0, i = 0; j < nums.length; j++) {
+            if (nums[j] != 0) {
+                i = j + 1;
+            } else {
+                sum += j - i + 1;
             }
-            sum += dp[i];
         }
         return sum;
     }
