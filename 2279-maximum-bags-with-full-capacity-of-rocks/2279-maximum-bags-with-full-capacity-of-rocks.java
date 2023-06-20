@@ -12,9 +12,15 @@ class Solution {
         Arrays.sort(diffIndex, (a, b) -> Integer.compare(a[0], b[0]));
         
         int count = 0;
-        for (int i = 0; i < n && additionalRocks >= diffIndex[i][0]; i++) {
-            count++;
-            additionalRocks -= diffIndex[i][0];            
+        for (int i = 0; i < n; i++) {
+            int diff = diffIndex[i][0];
+            int idx = diffIndex[i][1];
+            if (diff == 0) {
+                count++;
+            } else if (additionalRocks >= diff) {
+                additionalRocks -= diff;
+                count++;
+            }
         }        
         return count;
     }
