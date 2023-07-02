@@ -19,14 +19,8 @@ class Solution {
         dfs(root, set); // Populate the tree set
         List<List<Integer>> res = new ArrayList<>();
         for (Integer q : queries) {
-            Integer lower = null, higher = null;
-            if (set.contains(q)) {
-                lower = q;
-                higher = q;
-            } else {
-                lower = set.lower(q) == null ? -1 : set.lower(q);
-                higher = set.higher(q) == null ? -1 : set.higher(q);
-            }
+            Integer lower = set.floor(q) == null ? -1 : set.floor(q);
+            Integer higher = set.ceiling(q) == null ? -1 : set.ceiling(q);
             res.add(Arrays.asList(lower, higher));
         }
         return res;
