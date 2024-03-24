@@ -1,40 +1,44 @@
 class Solution {
-    
-    public boolean canFinish(int numCourses, int[][] prerequisites) {
-        List<List<Integer>> adj = new ArrayList<>();
-        for (int i = 0; i < numCourses; i++) {
-            adj.add(new ArrayList<>());
-        }
-
+    public boolean canFinish(int numCourses, int[][] prerequisites) {    
+        HashMap<Integer, List<Integer>> adjList = new HashMap<>();
+        boolean[] memo = new boolean[numCourses];
+        boolean[] vis = new boolean[numCourses];
         for (int i = 0; i < prerequisites.length; i++) {
-            adj.get(prerequisites[i][0]).add(prerequisites[i][1]);
+            int a = prerequisites[i][0];
+            int b = prerequisites[i][1];
+            if (adjList.containsKey(b)) {
+                List<Integer> adj = adjList.get(b);
+                adj.add(a);
+            } else {
+                List<Integer> adj = new ArrayList<>();
+                adj.add(a);
+                adjList.put(b, adj);
+            }
         }
-
-        int[] visited = new int[numCourses];
-        for (int i = 0; i < numCourses; i++) {
-            if (visited[i] == 0) {
-                if (isCyclic(adj, visited, i)) {
-                    return false;
-                }
+        
+        for (int i = 0; i < numCourses - 1; i++) {
+            if (!dfs(i, vis, adjList, memo)) {
+                return false;
             }
         }
         return true;
     }
-
-    private boolean isCyclic(List<List<Integer>> adj, int[] visited, int curr) {
-        if (visited[curr] == 2) {
-            return true;
-        }
-
-        visited[curr] = 2;
-        for (int i = 0; i < adj.get(curr).size(); i++) {
-            if (visited[adj.get(curr).get(i)] != 1) {
-                if (isCyclic(adj, visited, adj.get(curr).get(i))) {
-                    return true;
-                }
+    
+    public boolean dfs(int course, boolean[] vis, HashMap<Integer, List<Integer>> adjList, boolean[] memo) {
+        if (vis[course])
+            return false;
+        if (memo[course])
+            return true;        
+        vis[course] = true;
+        List<Integer> list = adjList.get(course);
+        if (list != null) {
+            for (Integer adj : list) {
+                if (!dfs(adj, vis, adjList, memo))
+                    return false;
             }
         }
-        visited[curr] = 1;
-        return false;
+        vis[course] = false;
+        memo[course] = true;
+        return true;
     }
 }
