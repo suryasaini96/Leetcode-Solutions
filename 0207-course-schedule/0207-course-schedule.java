@@ -1,48 +1,40 @@
 class Solution {
     
-    Boolean[] completedCourses;
-    
     public boolean canFinish(int numCourses, int[][] prerequisites) {
-        completedCourses = new Boolean[numCourses];
-        HashMap<Integer, List<Integer>> adjList = new HashMap<>();
-        boolean[] vis = new boolean[numCourses];
-        for (int i = 0; i < prerequisites.length; i++) {
-            int a = prerequisites[i][0];
-            int b = prerequisites[i][1];
-            if (adjList.containsKey(b)) {
-                List<Integer> adj = adjList.get(b);
-                adj.add(a);
-            } else {
-                List<Integer> adj = new ArrayList<>();
-                adj.add(a);
-                adjList.put(b, adj);
-            }
+        List<List<Integer>> adj = new ArrayList<>();
+        for (int i = 0; i < numCourses; i++) {
+            adj.add(new ArrayList<>());
         }
-        
-        for (int i = 0; i < numCourses - 1; i++) {
-            if (isCyclic(i, vis, adjList)) {
-                return false;
+
+        for (int i = 0; i < prerequisites.length; i++) {
+            adj.get(prerequisites[i][0]).add(prerequisites[i][1]);
+        }
+
+        int[] visited = new int[numCourses];
+        for (int i = 0; i < numCourses; i++) {
+            if (visited[i] == 0) {
+                if (isCyclic(adj, visited, i)) {
+                    return false;
+                }
             }
         }
         return true;
     }
-    
-    public boolean isCyclic(int course, boolean[] vis, HashMap<Integer, List<Integer>> adjList) {
-        if (vis[course])
+
+    private boolean isCyclic(List<List<Integer>> adj, int[] visited, int curr) {
+        if (visited[curr] == 2) {
             return true;
-        if (completedCourses[course] != null) {
-            return false;
         }
-        completedCourses[course] = true;
-        vis[course] = true;
-        List<Integer> list = adjList.get(course);
-        if (list != null) {
-            for (Integer adj : list) {
-                if (isCyclic(adj, vis, adjList))
+
+        visited[curr] = 2;
+        for (int i = 0; i < adj.get(curr).size(); i++) {
+            if (visited[adj.get(curr).get(i)] != 1) {
+                if (isCyclic(adj, visited, adj.get(curr).get(i))) {
                     return true;
+                }
             }
         }
-        vis[course] = false;
+        visited[curr] = 1;
         return false;
     }
 }
