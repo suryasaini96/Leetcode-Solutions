@@ -1,26 +1,21 @@
 class Solution {
+    
+    int count = 0;
+    
     public int countSubstrings(String s) {
-        int n = s.length();
-        boolean[][] dp = new boolean[n][n];
-        int count = 0;
-        for (int g = 0; g < dp.length; g++) {
-            for (int i=0, j=g; j < dp.length; i++, j++) {
-                if (g == 0)
-                    dp[i][j] = true;
-                else if (g == 1)
-                    dp[i][j] = s.charAt(i) == s.charAt(j);
-                else {
-                    if (s.charAt(i) == s.charAt(j) && dp[i+1][j-1] == true) {
-                        dp[i][j] = true;
-                    } else {
-                        dp[i][j] = false;
-                    }
-                }
-                if (dp[i][j]) {
-                    count++;
-                }
-            }
-        }        
+        if (s.length() == 0 || s == null) 
+            return 0;
+        for (int i = 0; i < s.length(); i++) {
+            extendStrings(s, i, i);
+            extendStrings(s, i, i+1);
+        }
         return count;
+    }
+    
+    public void extendStrings(String s, int start, int end) {
+        while (start >= 0 && end < s.length() && s.charAt(start) == s.charAt(end)) {
+            start--; end++;
+            count++;
+        }       
     }
 }
