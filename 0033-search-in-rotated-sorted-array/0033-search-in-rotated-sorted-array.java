@@ -1,7 +1,7 @@
 class Solution {
     public int search(int[] nums, int target) {
         int start = 0, end = nums.length - 1;
-        int pivot = findPivot(nums, target);
+        int pivot = findPivot(nums);
         // Check where the target lies
         if (target >= nums[pivot] && target <= nums[end])
             start = pivot;
@@ -21,7 +21,7 @@ class Solution {
         return -1;
     }
     
-    public int findPivot(int[] nums, int target) {
+    public int findPivot(int[] nums) {
         int left = 0, right = nums.length - 1;
         while (left < right) {
             int mid = left + (right - left)/2;
